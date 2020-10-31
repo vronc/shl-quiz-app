@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import './App.css';
-import axios from 'axios'
+import React, { Component } from "react";
+import "./App.css";
+import axios from "axios";
 
 class App extends Component {
   state = {
-    response: {}
+    response: {},
   };
-  
+
   componentDidMount() {
-    axios.get('/api/v1/say-something').then((res) => {
+    axios.get("/api/v1/say-something").then((res) => {
       const response = res.data;
-      this.setState({response});
+      this.setState({ response });
     });
   }
 

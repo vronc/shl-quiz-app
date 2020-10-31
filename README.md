@@ -1,12 +1,13 @@
 # shl-quiz-app
 
-
 #### Run app locally
-npm run dev
 
-#### Trigger build
-npm run client:build
+heroku local
 
+#### Deployment
 
-#### deployed at
+npm run client:build before push to main
+
+#### Deployed at
+
 https://shl-quiz.herokuapp.com/
