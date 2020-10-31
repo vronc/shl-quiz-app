@@ -6,6 +6,7 @@ heroku local
 
 #### Deployment
 
+git add -A
 npm run client:build before push to main
 
 #### Deployed at

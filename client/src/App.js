@@ -1,27 +1,22 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 
-class App extends Component {
-  state = {
-    response: {},
-  };
-
-  componentDidMount() {
-    axios.get("/api/v1/say-something").then((res) => {
+const App = () => {
+  const [players, setPlayers] = useState("");
+  const fetchPlayers = () =>
+    axios.get("/api/v1/get_players").then((res) => {
       const response = res.data;
-      this.setState({ response });
+      setPlayers(response);
     });
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <h1>Updated!</h1>
-        <h1>{this.state.response.body}</h1>
-      </div>
-    );
-  }
-}
+  useEffect(() => fetchPlayers, []);
+  return (
+    <div className="App">
+      <h1>Updated!</h1>
+      <h1>{players.body}</h1>
+    </div>
+  );
+};
 
 export default App;
