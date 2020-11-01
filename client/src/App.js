@@ -5,12 +5,20 @@ import axios from "axios";
 const App = () => {
   const [players, setPlayers] = useState("");
   const fetchPlayers = () =>
-    axios.get("/api/v1/get_players").then((res) => {
+    axios.get("/api/v1/get-players").then((res) => {
       const response = res.data;
       setPlayers(response);
     });
 
-  useEffect(() => fetchPlayers, []);
+  const connectToShl = () =>
+    axios.get("/api/v1/connect-to-shl").then((res) => {
+      console.log(res);
+    });
+
+  useEffect(() => {
+    connectToShl();
+    fetchPlayers();
+  }, []);
   return (
     <div className="App">
       <h1>Updated!</h1>

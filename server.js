@@ -29,6 +29,7 @@ app.use(cors());
 
 // Require Route
 const api = require("./routes/routes");
+const { debug } = require("console");
 // Configure app to use route
 app.use("/api/v1/", api);
 
@@ -47,7 +48,7 @@ if (
 // Catch any bad requests
 app.get("*", (req, res) => {
   res.status(200).json({
-    msg: "Catch All",
+    msg: "Bad Request",
   });
 });
 
