@@ -1,16 +1,18 @@
 ShlConnectionService = require("../services/shlConnection");
 
-const getPlayers = (req, res, next) => {
-  res.status(200).json({
-    body: "Hello from the server!",
-  });
+const getPlayersByTeam = (req, res, next) => {
+  ShlConnectionService.getPlayersByTeam(req.query.team_code).then((players) =>
+    res.status(200).json({
+      body: players,
+    })
+  );
 };
 
-module.exports.getPlayers = getPlayers;
+module.exports.getPlayersByTeam = getPlayersByTeam;
 
 const connectToShl = (req, res, next) => {
-  shlConnectionService = new ShlConnectionService();
-  shlConnectionService.connect();
+  ShlConnectionService.getInstance();
+
   res.status(200).json({
     body: "Hello from the server!",
   });

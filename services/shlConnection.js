@@ -16,8 +16,18 @@ const HEADERS = {
 
 class ShlConnection {
   constructor() {
-    this.accessToken = undefined;
+    this._accessToken = undefined;
     this.expires = new Date();
+
+    ShlConnection._instance = this;
+
+    this.connect();
+  }
+
+  getInstance() {
+    return ShlConnection._instance
+      ? ShlConnection._instance
+      : new ShlConnection();
   }
 
   connect() {
@@ -26,7 +36,7 @@ class ShlConnection {
         headers: HEADERS,
       })
       .then((body) => {
-        this.accessToken = body.data.access_token;
+        this._accessToken = body.data.access_token;
         this.expires.setSeconds(
           this.expires.getSeconds() + body.data.expires_in
         );
@@ -35,8 +45,19 @@ class ShlConnection {
   }
 
   isConnected = function () {
-    return this.accessToken && new Date() <= this.expires;
+    return this._accessToken && new Date() <= this.expires;
+  };
+
+  getPlayersByTeam = function (teamCode) {
+    return axios
+      .get(baseUrl + "/teams/" + teamCode + ".json", {
+        headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
+      })
+      .then((body) => {
+        return body.data.players;
+      })
+      .catch((e) => console.log("[shlConnection]: " + e.config));
   };
 }
 
-module.exports = ShlConnection;
+module.exports = new ShlConnection();
