@@ -10,6 +10,16 @@ const getPlayersByTeam = (req, res, next) => {
 
 module.exports.getPlayersByTeam = getPlayersByTeam;
 
+const getTeams = (req, res, next) => {
+  ShlConnectionService.getTeams().then((teams) =>
+    res.status(200).json({
+      body: teams,
+    })
+  );
+};
+
+module.exports.getTeams = getTeams;
+
 const connectToShl = (req, res, next) => {
   ShlConnectionService.getInstance();
 

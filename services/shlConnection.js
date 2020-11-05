@@ -1,5 +1,6 @@
 const axios = require("axios");
 const qs = require("querystring");
+const scraperService = require("./ScraperService");
 
 const baseUrl = "https://openapi.shl.se",
   auth = "/oauth2/token";
@@ -53,11 +54,36 @@ class ShlConnection {
       .get(baseUrl + "/teams/" + teamCode + ".json", {
         headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
       })
+      .then((body) => body.data.players)
+      .then(async (players) => {
+        let promisedPlayers = await Promise.all(
+          players.map(async (player) => {
+            let url = await scraperService.getPlayerProfileImageUrl(
+              player.player_url_desktop
+            );
+            player.player_image_url = url;
+            return player;
+          })
+        );
+        return promisedPlayers;
+      })
+      .catch((e) => console.log("[shlConnection]: " + e));
+  };
+
+  getTeams = function () {
+    return axios
+      .get(baseUrl + "/teams.json", {
+        headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
+      })
       .then((body) => {
-        return body.data.players;
+        return body.data;
       })
       .catch((e) => console.log("[shlConnection]: " + e.config));
   };
+}
+
+async function printFiles() {
+  const files = await getFilePaths();
 }
 
 module.exports = new ShlConnection();
