@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { connect } = require("http2");
 const qs = require("querystring");
 const scraperService = require("./ScraperService");
 
@@ -50,6 +51,10 @@ class ShlConnection {
   };
 
   getPlayersByTeam = function (teamCode) {
+    if (!this.isConnected()) {
+      connect();
+    }
+
     return axios
       .get(baseUrl + "/teams/" + teamCode + ".json", {
         headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
@@ -58,10 +63,9 @@ class ShlConnection {
       .then(async (players) => {
         let promisedPlayers = await Promise.all(
           players.map(async (player) => {
-            let url = await scraperService.getPlayerProfileImageUrl(
+            player.player_image_url = await scraperService.getPlayerProfileImageUrl(
               player.player_url_desktop
             );
-            player.player_image_url = url;
             return player;
           })
         );
@@ -71,6 +75,10 @@ class ShlConnection {
   };
 
   getTeams = function () {
+    if (!this.isConnected()) {
+      connect();
+    }
+
     return axios
       .get(baseUrl + "/teams.json", {
         headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
@@ -80,10 +88,6 @@ class ShlConnection {
       })
       .catch((e) => console.log("[shlConnection]: " + e.config));
   };
-}
-
-async function printFiles() {
-  const files = await getFilePaths();
 }
 
 module.exports = new ShlConnection();

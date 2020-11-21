@@ -12,7 +12,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       <TeamPicker></TeamPicker>
       <Players></Players>
     </div>
