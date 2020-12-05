@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "./styledComponents/Button";
-import PlayerCard from "./styledComponents/PlayerCard";
-import Loader from "./Loader";
+import PlayerCard from "./PlayerCard";
+import { Button, Loader, Input, Card, B } from "./styledComponents/Index";
 
-const Players = () => {
-  const [players, setPlayers] = useState(null);
+const Quiz = () => {
+  const [players, setPlayers] = useState([]);
+  const [player, setPlayer] = useState(null);
 
   const fetchPlayers = () =>
     axios
@@ -19,25 +19,33 @@ const Players = () => {
     fetchPlayers();
   }, []);
 
+  useEffect(() => {
+    const selectedPlayer = players[Math.floor(Math.random() * players.length)];
+    if (players.length) setPlayer(selectedPlayer);
+  }, [players]);
+
   return (
-    <div className="Players">
-      <div>
-        <Button text="butt" />
-      </div>
-      <Loader color="pink" size="50px" />
+    <B className="Quiz">
       <h1>Players</h1>
-      {players ? (
-        <div>
+      <Button>Primary</Button>
+      <Button secondary>Secondary</Button>
+      <Button disabled>Disabled</Button>
+      {player ? (
+        <B>
           <PlayerCard
-            playerImg={players[0].player_image_url}
-            playerName={players[0].first_name}
-          ></PlayerCard>
-        </div>
+            playerImg={player.player_image_url}
+            playerName={player.first_name}
+            playerNumber={player.default_jersey}
+          />
+          <Card>
+            <Input />
+          </Card>
+        </B>
       ) : (
-        <Loader color="green" size="10px" />
+        <Loader size="2rem" />
       )}
-    </div>
+    </B>
   );
 };
 
-export default Players;
+export default Quiz;

@@ -1,25 +1,22 @@
-import { css } from "@emotion/css";
+import styled from "styled-components";
 
-const Button = ({ text }) => {
-  const color = "white";
+const Button = styled.button`
+  color: white;
+  background: ${(p) => (p.secondary ? "black" : "#f8049c")};
+  font-weight: bold;
+  width: 15%;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 1em;
+  display: block;
+  border: none;
+  white-space: none;
 
-  return (
-    <div
-      className={css`
-        align-content: center;
-        min-width: 100px;
-        max-width: 250px;
-        padding: 32px;
-        background-color: hotpink;
-        font-size: 24px;
-        border-radius: 4px;
-        &:hover {
-          color: ${color};
-        }
-      `}
-    >
-      {text}
-    </div>
-  );
-};
-export default Button;
+  &:disabled {
+    background: #eee;
+    color: #666;
+  }
+`;
+
+export { Button };
