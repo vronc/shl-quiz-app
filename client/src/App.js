@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TeamPicker from "./components/TeamPicker";
-import Quiz from "./components/Players";
+import Quiz from "./components/Quiz";
 import { createGlobalStyle } from "styled-components";
 import { B, Button } from "./components/styledComponents/Index";
 
@@ -24,21 +24,24 @@ const QUIZ_STATES = {
 const App = () => {
   const connectToShl = () => axios.get("/api/v1/connect-to-shl");
 
-  const [selectedTeams, setSelectedTeams] = useState([]);
-  const [quizState, setQuizState] = useState(QUIZ_STATES.PICK_TEAMS);
+  const [selectedTeams, setSelectedTeams] = useState([]); // DEBUG change to empty array
+  const [quizState, setQuizState] = useState(QUIZ_STATES.PICK_TEAMS); // DEBUG change to PICK_TEAMS
 
   useEffect(() => {
     connectToShl();
   }, []);
 
   const handleSelectTeam = (team) => {
-    console.log(selectedTeams);
-    setSelectedTeams([...selectedTeams, team]);
+    const newSelectedTeams = selectedTeams.filter((t) => t !== team);
+    setSelectedTeams(
+      newSelectedTeams.length === selectedTeams.length
+        ? [...newSelectedTeams, team]
+        : newSelectedTeams
+    );
   };
 
   const handleQuizStart = () => {
     setQuizState(QUIZ_STATES.QUIZ_ONGOING);
-    console.log("Start");
   };
 
   return (
@@ -46,7 +49,10 @@ const App = () => {
       <GlobalStyle />
       {quizState === QUIZ_STATES.PICK_TEAMS && (
         <B>
-          <TeamPicker handleSelectTeam={handleSelectTeam}></TeamPicker>
+          <TeamPicker
+            handleSelectTeam={handleSelectTeam}
+            selectedTeams={selectedTeams}
+          ></TeamPicker>
           <Button
             disabled={selectedTeams.length === 0}
             onClick={() => handleQuizStart()}
@@ -55,7 +61,9 @@ const App = () => {
           </Button>
         </B>
       )}
-      {quizState === QUIZ_STATES.QUIZ_ONGOING && <Quiz></Quiz>}
+      {quizState === QUIZ_STATES.QUIZ_ONGOING && (
+        <Quiz teams={selectedTeams}></Quiz>
+      )}
     </B>
   );
 };

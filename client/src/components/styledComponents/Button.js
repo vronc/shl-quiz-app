@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Button = styled.button`
   color: white;
-  background: ${(p) => (p.secondary ? "black" : "#f8049c")};
+  background: ${(p) => (p.selected ? "black" : "#f8049c")};
   font-weight: bold;
   width: 15%;
   padding: 8px;
@@ -12,6 +12,7 @@ const Button = styled.button`
   display: block;
   border: none;
   white-space: none;
+  margin: 0.25rem;
 
   &:disabled {
     background: #eee;

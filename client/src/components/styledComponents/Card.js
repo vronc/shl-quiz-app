@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 const Card = styled.div`
-  min-width: 50%;
-  max-width: 100%;
-  background-color: lightcoral;
+  width: 90%;
+  background-color: lightseagreen;
   border-radius: 10px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: ${(p) => (p.flexWrap ? p.flexWrap : "wrap")};
   flex-direction: ${(p) => (p.flexDirection ? p.flexDirection : "row")};
   align-items: center;
   justify-content: center;

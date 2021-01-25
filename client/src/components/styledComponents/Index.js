@@ -4,3 +4,5 @@ export * from "./Loader";
 export * from "./Card";
 export * from "./Input";
 export * from "./B";
+export * from "./ImageCard";
+export * from "./ProgressBar";

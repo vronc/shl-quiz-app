@@ -1,11 +1,14 @@
-import { Headline, Card } from "./styledComponents/Index";
+import { Headline, Card, ImageCard } from "./styledComponents/Index";
 
 const PlayerCard = ({ playerImg, playerName, playerNumber }) => {
+  const showPlayerNumber = false;
   return (
     <Card flexDirection="column">
-      <img src={playerImg} alt="player"></img>
-      <Headline>{playerName}</Headline>
-      <Headline># {playerNumber}</Headline>
+      <ImageCard src={playerImg} alt="player" />
+      <Headline>
+        {playerName.first} {playerName.last}
+      </Headline>
+      {showPlayerNumber && <Headline># {playerNumber}</Headline>}
     </Card>
   );
 };

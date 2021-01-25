@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-import { Button, Card, B } from "./styledComponents/Index";
+import { Button, Card, B, Loader, ProgressBar } from "./styledComponents/Index";
 
-const TeamPicker = ({ handleSelectTeam }) => {
+const TeamPicker = ({ handleSelectTeam, selectedTeams }) => {
   const [teams, setTeams] = useState(null);
 
   const fetchteams = () =>
@@ -18,17 +18,28 @@ const TeamPicker = ({ handleSelectTeam }) => {
 
   return (
     <B>
-      <Card flexDirection="column">
-        <h1>Pick some teams!</h1>
-        <p>All palyers from the picked teams will be included in the quiz.</p>
-        <Card>
-          {teams &&
-            teams.map((team, i) => (
-              <Button onClick={() => handleSelectTeam(team.team_code)} key={i}>
-                {team.team_code}
-              </Button>
-            ))}
-        </Card>
+      <Card>
+        <B>
+          <h1>Pick some teams!</h1>
+          <p>
+            All palyers from the selected teams will be included in the quiz.
+          </p>
+          {teams ? (
+            <Card>
+              {teams.map((team, i) => (
+                <Button
+                  selected={selectedTeams.includes(team.team_code)}
+                  onClick={() => handleSelectTeam(team.team_code)}
+                  key={i}
+                >
+                  {team.team_code}
+                </Button>
+              ))}
+            </Card>
+          ) : (
+            <Loader size="2rem" />
+          )}
+        </B>
       </Card>
     </B>
   );
