@@ -5,7 +5,7 @@ import { Loader, Input, Card, B } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
 
-const Quiz = ({ teams }) => {
+const Quiz = ({ teams, endQuiz }) => {
   const [players, setPlayers] = useState([]);
   const [playerIndex, setPlayerIndex] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -22,12 +22,15 @@ const Quiz = ({ teams }) => {
     if (event) {
       event.preventDefault();
       checkAnswer();
+      setAnswer("");
       handleNextQuestion();
     }
   };
 
   const handleNextQuestion = () => {
-    setPlayerIndex(playerIndex + 1);
+    if (players.length <= playerIndex + 1)
+      endQuiz(score + " / " + players.length);
+    else setPlayerIndex(playerIndex + 1);
   };
   useEffect(() => {
     const fetchPlayers = () => {
@@ -69,7 +72,11 @@ const Quiz = ({ teams }) => {
           <Card flexWrap="nowrap">
             Player number:
             <form onSubmit={handleSubmit}>
-              <Input onChange={handleInputChange} value={answer} />
+              <Input
+                onChange={handleInputChange}
+                pattern="[A-Za-z0-9]+"
+                value={answer}
+              />
             </form>
           </Card>
         </B>

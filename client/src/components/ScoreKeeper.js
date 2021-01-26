@@ -1,7 +1,7 @@
 import { B } from "./styledComponents/B";
 
 const ScoreKeeper = ({ score }) => {
-  return <B>{score}</B>;
+  return <B>Score: {score}</B>;
 };
 
 export default ScoreKeeper;
