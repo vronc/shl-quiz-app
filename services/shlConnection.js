@@ -86,7 +86,7 @@ class ShlConnection {
       .then((body) => {
         return body.data;
       })
-      .catch((e) => console.log("[shlConnection]: " + e.config));
+      .catch((e) => console.log("[shlConnection]: " + e));
   };
 }
 

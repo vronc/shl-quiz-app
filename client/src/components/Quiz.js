@@ -40,8 +40,7 @@ const Quiz = ({ teams, endQuiz }) => {
             params: { team_code: teamCode.trim() },
           })
           .then((res) => {
-            let response = res.data.body;
-            const shuffledResponse = shuffle(response);
+            const shuffledResponse = shuffle(res.data.body);
             setPlayers(shuffledResponse);
           })
       );

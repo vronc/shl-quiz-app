@@ -11,8 +11,13 @@ const getPlayerProfileImageUrl = async (playerProfileUrl) => {
         return $("img[src^='https://cdn.ramses.nu']")[0].attribs.src;
       }
     })
-    .catch((err) => {
-      throw new Error(err);
+    .catch((e) => {
+      console.log(
+        "There was a problem fetching player image from url: " +
+          e.config.url +
+          ". Retrying to fetch..."
+      );
+      return getPlayerProfileImageUrl(playerProfileUrl);
     });
 };
 
