@@ -15,7 +15,7 @@ const getPlayerProfileImageUrl = async (playerProfileUrl) => {
       console.log(
         "There was a problem fetching player image from url: " +
           e.config.url +
-          ". Retrying to fetch..."
+          ". Retrying fetch..."
       );
       return getPlayerProfileImageUrl(playerProfileUrl);
     });

@@ -69,6 +69,7 @@ class ShlConnection {
             return player;
           })
         );
+        console.log(promisedPlayers);
         return promisedPlayers;
       })
       .catch((e) => console.log("[shlConnection]: " + e));

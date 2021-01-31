@@ -4,17 +4,22 @@ import PlayerCard from "./PlayerCard";
 import { Loader, Input, Card, B } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
+//import mock from "../mock.json";
 
 const Quiz = ({ teams, endQuiz }) => {
   const [players, setPlayers] = useState([]);
-  const [playerIndex, setPlayerIndex] = useState(0);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [results, setResults] = useState([]);
   const [answer, setAnswer] = useState("");
   const [score, setScore] = useState(0);
 
   const checkAnswer = () => {
     const currentScore = score;
-    if (answer == players[playerIndex].default_jersey) {
+    if (answer === players[questionIndex].default_jersey.toString()) {
+      results[questionIndex] = 1;
       setScore(currentScore + 1);
+    } else {
+      results[questionIndex] = 0;
     }
   };
 
@@ -28,9 +33,8 @@ const Quiz = ({ teams, endQuiz }) => {
   };
 
   const handleNextQuestion = () => {
-    if (players.length <= playerIndex + 1)
-      endQuiz(score + " / " + players.length);
-    else setPlayerIndex(playerIndex + 1);
+    if (players.length <= questionIndex + 1) endQuiz(results);
+    else setQuestionIndex(questionIndex + 1);
   };
   useEffect(() => {
     const fetchPlayers = () => {
@@ -45,9 +49,13 @@ const Quiz = ({ teams, endQuiz }) => {
           })
       );
     };
-
+    //setPlayers(mock);
     fetchPlayers();
   }, [teams]);
+
+  useEffect(() => {
+    setResults(Array(players.length).fill(2));
+  }, [players]);
 
   const handleInputChange = (event) => {
     setAnswer(event.target.value);
@@ -58,15 +66,15 @@ const Quiz = ({ teams, endQuiz }) => {
       {players.length ? (
         <B>
           <PlayerCard
-            playerImg={players[playerIndex].player_image_url}
+            playerImg={players[questionIndex].player_image_url}
             playerName={{
-              first: players[playerIndex].first_name,
-              last: players[playerIndex].last_name,
+              first: players[questionIndex].first_name,
+              last: players[questionIndex].last_name,
             }}
-            playerNumber={players[playerIndex].default_jersey}
+            playerNumber={players[questionIndex].default_jersey}
           />
           <Card>
-            <ScoreKeeper score={score} />
+            <ScoreKeeper results={results} />
           </Card>
           <Card flexWrap="nowrap">
             Player number:

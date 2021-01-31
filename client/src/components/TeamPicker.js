@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-import { Button, Card, B, Loader, ProgressBar } from "./styledComponents/Index";
+import { Button, Card, B, Loader } from "./styledComponents/Index";
 
 const TeamPicker = ({ handleSelectTeam, selectedTeams }) => {
   const [teams, setTeams] = useState(null);

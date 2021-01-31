@@ -1,7 +1,7 @@
 import { Headline, Card, ImageCard } from "./styledComponents/Index";
 
 const PlayerCard = ({ playerImg, playerName, playerNumber }) => {
-  const showPlayerNumber = false;
+  const showPlayerNumber = true;
   return (
     <Card flexDirection="column">
       <ImageCard src={playerImg} alt="player" />

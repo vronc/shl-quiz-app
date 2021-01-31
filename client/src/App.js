@@ -22,14 +22,14 @@ const App = () => {
 
   const [selectedTeams, setSelectedTeams] = useState([]); // DEBUG change to empty array
   const [quizState, setQuizState] = useState(QUIZ_STATES.PICK_TEAMS); // DEBUG change to PICK_TEAMS
-  const [result, setResult] = useState("");
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     connectToShl();
   }, []);
 
   const endQuiz = (res) => {
-    setResult(res);
+    setResults(res);
     setQuizState(QUIZ_STATES.QUIZ_RESULT);
   };
 
@@ -64,14 +64,20 @@ const App = () => {
         </B>
       )}
       {quizState === QUIZ_STATES.QUIZ_ONGOING && (
-        <Quiz
-          teams={selectedTeams}
-          endQuiz={endQuiz}
-          setResult={setResult}
-        ></Quiz>
+        <Quiz teams={selectedTeams} endQuiz={endQuiz}></Quiz>
       )}
       {quizState === QUIZ_STATES.QUIZ_RESULT && (
-        <Card>Total Score: {result} 🎉</Card>
+        <Card style={{ height: "30em" }}>
+          <h1>
+            Total Score:{" "}
+            {results.filter(function (value) {
+              return value === 1;
+            }).length +
+              " / " +
+              results.length}{" "}
+            🎉
+          </h1>
+        </Card>
       )}
     </B>
   );
