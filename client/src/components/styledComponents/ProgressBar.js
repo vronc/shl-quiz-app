@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const ITEM_STATES = {
-  0: "salmon",
-  1: "palegreen",
+  0: "#732C2C",
+  1: "#379392",
   2: "lightgray",
 };
 
