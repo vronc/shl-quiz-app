@@ -15,7 +15,10 @@ const Quiz = ({ teams, endQuiz }) => {
 
   const checkAnswer = () => {
     const currentScore = score;
-    if (answer === players[questionIndex].default_jersey.toString()) {
+    if (
+      answer.replace(/^0+/, "") ===
+      players[questionIndex].default_jersey.toString()
+    ) {
       results[questionIndex] = 1;
       setScore(currentScore + 1);
     } else {
@@ -81,7 +84,8 @@ const Quiz = ({ teams, endQuiz }) => {
             <form onSubmit={handleSubmit}>
               <Input
                 onChange={handleInputChange}
-                pattern="[A-Za-z0-9]+"
+                pattern="[A-Za-z0-9]{1,50}"
+                required
                 value={answer}
               />
             </form>
