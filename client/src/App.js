@@ -50,6 +50,12 @@ const App = () => {
     setQuizState(QUIZ_STATES.QUIZ_ONGOING);
   };
 
+  const handleRestartQuiz = () => {
+    setSelectedTeams([]);
+    setResults([]);
+    setQuizState(QUIZ_STATES.PICK_TEAMS);
+  };
+
   return (
     <B style={{ class: "row" }}>
       <GlobalStyle />
@@ -81,6 +87,9 @@ const App = () => {
               results.length}{" "}
             🎉
           </h1>
+          <B>
+            <Button onClick={() => handleRestartQuiz()}>Re-Quiz</Button>
+          </B>
         </Card>
       )}
     </B>
