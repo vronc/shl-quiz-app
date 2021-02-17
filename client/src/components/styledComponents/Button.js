@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { COLORS } from "../../utils/Constants";
 
 const Button = styled.button`
   color: white;
-  background: ${(p) => (p.selected ? "#593C8F" : "#7073C8")};
+  background: ${(p) => (p.selected ? COLORS.DARK_PURPLE : COLORS.LIGHT_PURPLE)};
   font-weight: bold;
   width: 15%;
   padding: 8px;
@@ -16,7 +17,7 @@ const Button = styled.button`
 
   &:disabled {
     background: #eee;
-    color: #666;
+    color: ${COLORS.DISABLED_GRAY};
   }
 `;
 

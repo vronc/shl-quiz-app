@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { COLORS } from "../../utils/Constants";
 
 const ITEM_STATES = {
-  0: "#732C2C",
-  1: "#379392",
+  0: COLORS.RED,
+  1: COLORS.GREEN,
   2: "lightgray",
 };
 

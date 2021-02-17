@@ -4,6 +4,7 @@ import PlayerCard from "./PlayerCard";
 import { Loader, Input, Card, B } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
+import placeholder_player_image from "../assets/placeholder_player.png";
 //import mock from "../mock.json";
 
 const Quiz = ({ teams, endQuiz }) => {
@@ -47,8 +48,12 @@ const Quiz = ({ teams, endQuiz }) => {
             params: { team_code: teamCode.trim() },
           })
           .then((res) => {
-            const shuffledResponse = shuffle(res.data.body);
-            setPlayers(shuffledResponse);
+            if (res.data.body) {
+              const shuffledResponse = shuffle(res.data.body);
+              setPlayers(shuffledResponse);
+            } else {
+              throw new Error("There was a problem fetching players.");
+            }
           })
       );
     };
@@ -69,7 +74,11 @@ const Quiz = ({ teams, endQuiz }) => {
       {players.length ? (
         <B>
           <PlayerCard
-            playerImg={players[questionIndex].player_image_url}
+            playerImg={
+              players[questionIndex].player_image_url
+                ? players[questionIndex].player_image_url
+                : placeholder_player_image
+            }
             playerName={{
               first: players[questionIndex].first_name,
               last: players[questionIndex].last_name,

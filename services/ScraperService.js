@@ -8,16 +8,20 @@ const getPlayerProfileImageUrl = async (playerProfileUrl) => {
       if (response.status === 200) {
         const html = response.data;
         const $ = cheerio.load(html);
-        return $("img[src^='https://cdn.ramses.nu']")[0].attribs.src;
+        const image = $("img[src^='https://cdn.ramses.nu']");
+        if (!image) console.log(image);
+        return image ? image[0].attribs.src : "";
       }
     })
     .catch((e) => {
-      console.log(
-        "There was a problem fetching player image from url: " +
-          e.config.url +
-          ". Retrying fetch..."
-      );
-      return getPlayerProfileImageUrl(playerProfileUrl);
+      if (e.config) {
+        console.log(
+          "There was a problem fetching player image from url: " +
+            e.config.url +
+            ". Retrying fetch..."
+        );
+        return getPlayerProfileImageUrl(playerProfileUrl);
+      }
     });
 };
 

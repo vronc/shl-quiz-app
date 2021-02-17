@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
+import { COLORS } from "../../utils/Constants";
+
 const Headline = styled.h1`
-  color: #1c1d55;
+  color: ${COLORS.BLUE};
 `;
 
 export { Headline };
