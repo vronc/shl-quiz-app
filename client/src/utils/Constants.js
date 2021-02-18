@@ -10,4 +10,5 @@ export const COLORS = {
   LIGHT_PURPLE: "#7073C8",
   DISABLED_GRAY: "#666",
   GREEN: "#379392",
+  RED: "#732C2C",
 };
