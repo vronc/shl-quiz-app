@@ -6,13 +6,13 @@ import {
   ProgressBarItem,
 } from "./styledComponents/Index";
 
-const ScoreKeeper = ({ results }) => {
+const ScoreKeeper = ({ questions }) => {
   return (
     <B>
       <ProgressBarContainer>
         <ProgressSegment>
-          {results.map((result, i) => (
-            <ProgressBarItem key={i} state={result} />
+          {questions.map((q, i) => (
+            <ProgressBarItem key={i} state={q.score} />
           ))}
         </ProgressSegment>
       </ProgressBarContainer>

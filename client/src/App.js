@@ -33,8 +33,8 @@ const App = () => {
     connectToShl();
   }, []);
 
-  const endQuiz = (res) => {
-    setResults(res);
+  const endQuiz = (answeredQuestions) => {
+    setResults(answeredQuestions);
     setQuizState(QUIZ_STATES.QUIZ_RESULT);
   };
 

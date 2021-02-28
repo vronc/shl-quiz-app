@@ -8,9 +8,8 @@ import placeholder_player_image from "../assets/placeholder_player.png";
 //import mock from "../mock.json";
 
 const Quiz = ({ teams, endQuiz }) => {
-  const [players, setPlayers] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [results, setResults] = useState([]);
   const [answer, setAnswer] = useState("");
   const [score, setScore] = useState(0);
 
@@ -18,12 +17,12 @@ const Quiz = ({ teams, endQuiz }) => {
     const currentScore = score;
     if (
       answer.replace(/^0+/, "") ===
-      players[questionIndex].default_jersey.toString()
+      questions[questionIndex].default_jersey.toString()
     ) {
-      results[questionIndex] = 1;
+      questions[questionIndex].score = 1;
       setScore(currentScore + 1);
     } else {
-      results[questionIndex] = 0;
+      questions[questionIndex].score = 0;
     }
   };
 
@@ -37,33 +36,29 @@ const Quiz = ({ teams, endQuiz }) => {
   };
 
   const handleNextQuestion = () => {
-    if (players.length <= questionIndex + 1) endQuiz(results);
+    if (questions.length <= questionIndex + 1) endQuiz(questions);
     else setQuestionIndex(questionIndex + 1);
   };
-  useEffect(() => {
-    const fetchPlayers = () => {
-      teams.map((teamCode) =>
-        axios
-          .get("/api/v1/get-players-by-team", {
-            params: { team_code: teamCode.trim() },
-          })
-          .then((res) => {
-            if (res.data.body) {
-              const shuffledResponse = shuffle(res.data.body);
-              setPlayers(shuffledResponse);
-            } else {
-              throw new Error("There was a problem fetching players.");
-            }
-          })
-      );
-    };
-    //setPlayers(mock);
-    fetchPlayers();
-  }, [teams]);
 
   useEffect(() => {
-    setResults(Array(players.length).fill(2));
-  }, [players]);
+    const fetchPlayers = async () => {
+      return Promise.all(
+        teams.map((teamCode) =>
+          axios.get("/api/v1/get-players-by-team", {
+            params: { team_code: teamCode.trim() },
+          })
+        )
+      );
+    };
+    fetchPlayers().then((playersByTeam) => {
+      playersByTeam.map((team) =>
+        setQuestions((qs) =>
+          shuffle([...qs, ...team.data.body.map((p) => ({ ...p, score: 2 }))])
+        )
+      );
+    });
+    //setQuestions(mock);
+  }, [teams]);
 
   const handleInputChange = (event) => {
     setAnswer(event.target.value);
@@ -71,22 +66,22 @@ const Quiz = ({ teams, endQuiz }) => {
 
   return (
     <B className="Quiz">
-      {players.length ? (
+      {questions.length ? (
         <B>
           <PlayerCard
             playerImg={
-              players[questionIndex].player_image_url
-                ? players[questionIndex].player_image_url
+              questions[questionIndex].player_image_url
+                ? questions[questionIndex].player_image_url
                 : placeholder_player_image
             }
             playerName={{
-              first: players[questionIndex].first_name,
-              last: players[questionIndex].last_name,
+              first: questions[questionIndex].first_name,
+              last: questions[questionIndex].last_name,
             }}
-            playerNumber={players[questionIndex].default_jersey}
+            playerNumber={questions[questionIndex].default_jersey}
           />
           <Card>
-            <ScoreKeeper results={results} />
+            <ScoreKeeper questions={questions} />
           </Card>
           <Card flexWrap="nowrap">
             Player number:
