@@ -4,7 +4,6 @@ import PlayerCard from "./PlayerCard";
 import { Loader, Input, Card, B } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
-import placeholder_player_image from "../assets/placeholder_player.png";
 //import mock from "../mock.json";
 
 const Quiz = ({ teams, endQuiz }) => {
@@ -70,15 +69,15 @@ const Quiz = ({ teams, endQuiz }) => {
         <B>
           <PlayerCard
             playerImg={
+              questions[questionIndex].player_image_url &&
               questions[questionIndex].player_image_url
-                ? questions[questionIndex].player_image_url
-                : placeholder_player_image
             }
             playerName={{
               first: questions[questionIndex].first_name,
               last: questions[questionIndex].last_name,
             }}
             playerNumber={questions[questionIndex].default_jersey}
+            showPlayerNumber={false}
           />
           <Card>
             <ScoreKeeper questions={questions} />

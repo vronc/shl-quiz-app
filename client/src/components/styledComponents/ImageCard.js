@@ -3,7 +3,7 @@ import { COLORS } from "../../utils/Constants";
 
 const ImageCard = styled.img`
   src: ${(p) => p.src};
-  background-color: "#DB5461";
+  background-color: ${COLORS.BLUE};
   border-radius: 10px;
   box-shadow: 0 0 0 13px ${COLORS.BLUE};
   align-items: center;

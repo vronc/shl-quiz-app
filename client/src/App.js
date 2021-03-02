@@ -7,6 +7,7 @@ import { B, Button } from "./components/styledComponents/Index";
 import { QUIZ_STATES } from "./utils/Constants";
 import { Card } from "./components/styledComponents/Index";
 import { COLORS } from "./utils/Constants";
+import PlayerCard from "./components/PlayerCard";
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -78,18 +79,36 @@ const App = () => {
         <Quiz teams={selectedTeams} endQuiz={endQuiz}></Quiz>
       )}
       {quizState === QUIZ_STATES.QUIZ_RESULT && (
-        <Card style={{ height: "30em" }}>
-          <h1>
-            Total Score:{" "}
-            {results.filter(function (value) {
-              return value === 1;
-            }).length +
-              " / " +
-              results.length}{" "}
-            🎉
-          </h1>
+        <Card style={{ height: "auto" }}>
           <B>
-            <Button onClick={() => handleRestartQuiz()}>Re-Quiz</Button>
+            <h1>
+              Total Score:{" "}
+              {results.filter(function (value) {
+                return value.score === 1;
+              }).length +
+                " / " +
+                results.length}{" "}
+              🎉
+            </h1>
+            <Card>
+              {results.map((r, i) => (
+                <PlayerCard
+                  width="12rem"
+                  key={i}
+                  playerImg={r.player_image_url && r.player_image_url}
+                  playerName={{
+                    first: r.first_name,
+                    last: r.last_name,
+                  }}
+                  playerNumber={r.default_jersey}
+                  showPlayerNumber={true}
+                  correctAnswerGiven={r.score}
+                />
+              ))}
+            </Card>
+            <B>
+              <Button onClick={() => handleRestartQuiz()}>Re-Quiz</Button>
+            </B>
           </B>
         </Card>
       )}
