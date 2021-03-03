@@ -3,7 +3,7 @@ import { COLORS } from "../../utils/Constants";
 
 const Button = styled.button`
   color: white;
-  background: ${(p) => (p.selected ? COLORS.DARK_PURPLE : COLORS.LIGHT_PURPLE)};
+  background: ${(p) => (p.selected ? COLORS.SELECTED : COLORS.IDLE)};
   font-weight: bold;
   width: 15%;
   padding: 8px;
@@ -17,7 +17,7 @@ const Button = styled.button`
 
   &:disabled {
     background: #eee;
-    color: ${COLORS.DISABLED_GRAY};
+    color: ${COLORS.DISABLED};
   }
 `;
 

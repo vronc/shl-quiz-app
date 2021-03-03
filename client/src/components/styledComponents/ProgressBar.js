@@ -3,7 +3,7 @@ import { COLORS } from "../../utils/Constants";
 
 const ITEM_STATES = {
   0: COLORS.RED,
-  1: COLORS.GREEN,
+  1: COLORS.CORRECT,
   2: "lightgray",
 };
 

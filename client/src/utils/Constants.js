@@ -5,10 +5,27 @@ export const QUIZ_STATES = {
 };
 
 export const COLORS = {
-  BLUE: "#1c1d55",
-  DARK_PURPLE: "#593C8F",
-  LIGHT_PURPLE: "#7073C8",
-  DISABLED_GRAY: "#666",
-  GREEN: "#379392",
-  RED: "#732C2C",
+  PRIMARY: "#191b20",
+  SELECTED: "#000",
+  IDLE: "#536481",
+  DISABLED: "#666",
+  CORRECT: "#00dd6d",
+  RED: "#dd0000",
+};
+
+export const COLORS_BY_TEAM = {
+  BIF: "#000",
+  DIF: "#1e2652",
+  FBK: "#d3cbab",
+  FHC: "#6d2620",
+  HV71: "#214878",
+  IKO: "#1b3766",
+  LHC: "#08305e",
+  LHF: "#ffcc00",
+  LIF: "#FFF",
+  MIF: "#4f010a",
+  OHK: "#81000f",
+  RBK: "#0a441c",
+  SAIK: "#8a661a",
+  VLH: "#ca6028",
 };

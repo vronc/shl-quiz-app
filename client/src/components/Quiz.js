@@ -52,7 +52,14 @@ const Quiz = ({ teams, endQuiz }) => {
     fetchPlayers().then((playersByTeam) => {
       playersByTeam.map((team) =>
         setQuestions((qs) =>
-          shuffle([...qs, ...team.data.body.map((p) => ({ ...p, score: 2 }))])
+          shuffle([
+            ...qs,
+            ...team.data.body.map((p) => ({
+              ...p,
+              score: 2,
+              team: team.config.params.team_code,
+            })),
+          ])
         )
       );
     });
@@ -62,7 +69,6 @@ const Quiz = ({ teams, endQuiz }) => {
   const handleInputChange = (event) => {
     setAnswer(event.target.value);
   };
-
   return (
     <B className="Quiz">
       {questions.length ? (
@@ -78,7 +84,9 @@ const Quiz = ({ teams, endQuiz }) => {
             }}
             playerNumber={questions[questionIndex].default_jersey}
             showPlayerNumber={false}
+            team={questions[questionIndex].team}
           />
+
           <Card>
             <ScoreKeeper questions={questions} />
           </Card>

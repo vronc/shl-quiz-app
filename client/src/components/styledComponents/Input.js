@@ -4,7 +4,7 @@ import { COLORS } from "../../utils/Constants";
 const Input = styled.input`
   padding: 0.5em;
   margin: 0.5em;
-  color: ${(props) => props.inputColor || COLORS.BLUE};
+  color: ${(props) => props.inputColor || COLORS.PRIMARY};
   background: seashell;
   border: none;
   border-radius: 3px;

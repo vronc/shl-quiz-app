@@ -3,9 +3,9 @@ import { COLORS } from "../../utils/Constants";
 
 const ImageCard = styled.img`
   src: ${(p) => p.src};
-  background-color: ${COLORS.BLUE};
+  background-color: ${(p) => p.color || COLORS.PRIMARY};
   border-radius: 10px;
-  box-shadow: 0 0 0 13px ${COLORS.BLUE};
+  box-shadow: 0 0 0 13px ${(p) => p.color || COLORS.PRIMARY};
   align-items: center;
   justify-content: center;
   align-content: center;
