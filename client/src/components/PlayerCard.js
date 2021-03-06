@@ -12,7 +12,12 @@ const PlayerCard = ({
   team,
 }) => {
   return (
-    <Card flexDirection="column" width={width}>
+    <Card
+      minHeight={"30rem"}
+      flexDirection="column"
+      width={width}
+      justifyContent={"flex-start"}
+    >
       <ImageCard
         src={playerImg || placeholder_player_image}
         alt="player"
@@ -24,9 +29,14 @@ const PlayerCard = ({
         {playerName.last}
       </Headline>
       {showPlayerNumber && (
-        <Headline color={correctAnswerGiven ? COLORS.CORRECT : COLORS.RED}>
+        <h2
+          style={{
+            color: correctAnswerGiven ? COLORS.CORRECT : COLORS.RED,
+            marginTop: "1rem",
+          }}
+        >
           # {playerNumber}
-        </Headline>
+        </h2>
       )}
     </Card>
   );

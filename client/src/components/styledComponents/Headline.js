@@ -5,6 +5,7 @@ import { COLORS } from "../../utils/Constants";
 const Headline = styled.h1`
   color: ${(props) => props.color || COLORS.PRIMARY};
   text-align: center;
+  margin: 1rem;
 `;
 
 export { Headline };

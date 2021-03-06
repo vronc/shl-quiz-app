@@ -4,6 +4,7 @@ import PlayerCard from "./PlayerCard";
 import { Loader, Input, Card, B } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
+import { COLORS } from "../utils/Constants";
 //import mock from "../mock.json";
 
 const Quiz = ({ teams, endQuiz }) => {
@@ -103,9 +104,9 @@ const Quiz = ({ teams, endQuiz }) => {
           </Card>
         </B>
       ) : (
-        <B>
+        <B style={{ color: COLORS.IDLE }}>
           <Loader size="2rem" />
-          Preparing your quiz...
+          <h3 style={{ color: COLORS.IDLE }}>Preparing your quiz...</h3>
         </B>
       )}
     </B>
