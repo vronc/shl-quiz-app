@@ -74,6 +74,9 @@ const Quiz = ({ teams, endQuiz }) => {
     <B className="Quiz">
       {questions.length ? (
         <B>
+          <Card>
+            <ScoreKeeper questions={questions} />
+          </Card>
           <PlayerCard
             playerImg={
               questions[questionIndex].player_image_url &&
@@ -87,10 +90,6 @@ const Quiz = ({ teams, endQuiz }) => {
             showPlayerNumber={false}
             team={questions[questionIndex].team}
           />
-
-          <Card>
-            <ScoreKeeper questions={questions} />
-          </Card>
           <Card flexWrap="nowrap">
             Player number:
             <form onSubmit={handleSubmit}>

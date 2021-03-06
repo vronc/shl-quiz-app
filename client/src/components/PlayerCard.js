@@ -13,7 +13,7 @@ const PlayerCard = ({
 }) => {
   return (
     <Card
-      minHeight={"30rem"}
+      minHeight={showPlayerNumber && "30rem"}
       flexDirection="column"
       width={width}
       justifyContent={"flex-start"}
