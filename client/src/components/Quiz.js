@@ -91,13 +91,13 @@ const Quiz = ({ teams, endQuiz }) => {
             team={questions[questionIndex].team}
           />
           <Card flexWrap="nowrap">
-            Player number:
             <form onSubmit={handleSubmit}>
               <Input
                 onChange={handleInputChange}
                 pattern="[A-Za-z0-9]{1,50}"
                 required
                 value={answer}
+                placeholder="player number"
               />
             </form>
           </Card>

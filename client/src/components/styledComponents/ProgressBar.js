@@ -9,12 +9,10 @@ const ITEM_STATES = {
 
 const ProgressBarContainer = styled.div`
   width: 95%;
-  margin: 1rem;
 `;
 
 const ProgressSegment = styled.div`
   display: flex;
-  margin-bottom: 1rem;
   height: 10px;
 `;
 

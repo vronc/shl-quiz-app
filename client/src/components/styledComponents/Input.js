@@ -8,6 +8,7 @@ const Input = styled.input`
   background: seashell;
   border: none;
   border-radius: 3px;
+  text-align: center;
 `;
 
 export { Input };
