@@ -9,6 +9,7 @@ export const COLORS = {
   SELECTED: "#000",
   IDLE: "#536481",
   DISABLED: "#666",
+  ATTENTION: "#20fffd",
   CORRECT: "#00dd6d",
   RED: "#dd0000",
 };
