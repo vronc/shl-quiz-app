@@ -3,7 +3,7 @@ import axios from "axios";
 import TeamPicker from "./components/TeamPicker";
 import Quiz from "./components/Quiz";
 import { createGlobalStyle } from "styled-components";
-import { B, Button } from "./components/styledComponents/Index";
+import { B, Button, Gutter } from "./components/styledComponents/Index";
 import { QUIZ_STATES } from "./utils/Constants";
 import { Card } from "./components/styledComponents/Index";
 import PlayerCard from "./components/PlayerCard";
@@ -82,34 +82,36 @@ const App = () => {
         <Quiz teams={selectedTeams} endQuiz={endQuiz}></Quiz>
       )}
       {quizState === QUIZ_STATES.QUIZ_RESULT && (
-        <Card style={{ height: "auto" }}>
-          <B>
-            <h1>
-              Total Score: {totalScore + " / " + results.length + " "}
-              {totalScore > results.length - 10 && "🎉"}
-            </h1>
-            <Card>
-              {results.map((r, i) => (
-                <PlayerCard
-                  width="12rem"
-                  key={i}
-                  playerImg={r.player_image_url && r.player_image_url}
-                  playerName={{
-                    first: r.first_name,
-                    last: r.last_name,
-                  }}
-                  playerNumber={r.default_jersey}
-                  showPlayerNumber={true}
-                  correctAnswerGiven={r.score}
-                  team={r.team}
-                />
-              ))}
-            </Card>
+        <B>
+          <Gutter />
+          <Button onClick={() => handleRestartQuiz()}>Re-Quiz</Button>
+
+          <Card style={{ height: "auto" }}>
             <B>
-              <Button onClick={() => handleRestartQuiz()}>Re-Quiz</Button>
+              <h1>
+                Total Score: {totalScore + " / " + results.length + " "}
+                {totalScore > results.length - 10 && "🎉"}
+              </h1>
+              <Card>
+                {results.map((r, i) => (
+                  <PlayerCard
+                    width="12rem"
+                    key={i}
+                    playerImg={r.player_image_url && r.player_image_url}
+                    playerName={{
+                      first: r.first_name,
+                      last: r.last_name,
+                    }}
+                    playerNumber={r.default_jersey}
+                    showPlayerNumber={true}
+                    correctAnswerGiven={r.score}
+                    team={r.team}
+                  />
+                ))}
+              </Card>
             </B>
-          </B>
-        </Card>
+          </Card>
+        </B>
       )}
     </B>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PlayerCard from "./PlayerCard";
-import { Loader, Input, Card, B } from "./styledComponents/Index";
+import { Loader, Input, Card, B, Button } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
 import { COLORS } from "../utils/Constants";
@@ -36,8 +36,7 @@ const Quiz = ({ teams, endQuiz }) => {
   };
 
   const handleNextQuestion = () => {
-    if (questions.length <= questionIndex + 1) endQuiz(questions);
-    else setQuestionIndex(questionIndex + 1);
+    setQuestionIndex(questionIndex + 1);
   };
 
   useEffect(() => {
@@ -77,30 +76,40 @@ const Quiz = ({ teams, endQuiz }) => {
           <Card>
             <ScoreKeeper questions={questions} />
           </Card>
-          <PlayerCard
-            playerImg={
-              questions[questionIndex].player_image_url &&
-              questions[questionIndex].player_image_url
-            }
-            playerName={{
-              first: questions[questionIndex].first_name,
-              last: questions[questionIndex].last_name,
-            }}
-            playerNumber={questions[questionIndex].default_jersey}
-            showPlayerNumber={false}
-            team={questions[questionIndex].team}
-          />
-          <Card flexWrap="nowrap">
-            <form onSubmit={handleSubmit}>
-              <Input
-                onChange={handleInputChange}
-                pattern="[A-Za-z0-9]{1,50}"
-                required
-                value={answer}
-                placeholder="player number"
+          {questionIndex < questions.length ? (
+            <B>
+              <PlayerCard
+                playerImg={
+                  questions[questionIndex].player_image_url &&
+                  questions[questionIndex].player_image_url
+                }
+                playerName={{
+                  first: questions[questionIndex].first_name,
+                  last: questions[questionIndex].last_name,
+                }}
+                playerNumber={questions[questionIndex].default_jersey}
+                showPlayerNumber={false}
+                team={questions[questionIndex].team}
               />
-            </form>
-          </Card>
+              <Card flexWrap="nowrap">
+                <form onSubmit={handleSubmit}>
+                  <Input
+                    onChange={handleInputChange}
+                    pattern="[A-Za-z0-9]{1,50}"
+                    required
+                    value={answer}
+                    placeholder="player number"
+                  />
+                </form>
+              </Card>
+            </B>
+          ) : (
+            <Card minHeight="30rem">
+              <Button width="auto" onClick={() => endQuiz(questions)}>
+                Show results
+              </Button>
+            </Card>
+          )}
         </B>
       ) : (
         <B style={{ color: COLORS.IDLE }}>

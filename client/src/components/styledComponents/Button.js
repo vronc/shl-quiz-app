@@ -5,7 +5,7 @@ const Button = styled.button`
   color: white;
   background: ${(p) => (p.selected ? COLORS.SELECTED : COLORS.IDLE)};
   font-weight: bold;
-  width: 15%;
+  width: ${(p) => p.width || "15%"};
   padding: 8px;
   border-radius: 4px;
   box-shadow: none;
