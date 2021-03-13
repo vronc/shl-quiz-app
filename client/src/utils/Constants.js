@@ -12,6 +12,7 @@ export const COLORS = {
   ATTENTION: "#20fffd",
   CORRECT: "#00dd6d",
   RED: "#dd0000",
+  FIELD: "seashell",
 };
 
 export const COLORS_BY_TEAM = {

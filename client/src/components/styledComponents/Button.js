@@ -19,6 +19,12 @@ const Button = styled.button`
     background: #eee;
     color: ${COLORS.DISABLED};
   }
+
+  &:focus {
+    outline: none !important;
+    border-color: ${COLORS.IDLE};
+    box-shadow: 0 0 10px ${COLORS.IDLE};
+  }
 `;
 
 export { Button };
