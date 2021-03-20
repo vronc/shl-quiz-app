@@ -3,6 +3,7 @@ import axios from "axios";
 import PlayerCard from "./PlayerCard";
 import { Loader, Input, Card, B, Button } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
+import { hammingDistance } from "../utils/HammingDistance";
 import ScoreKeeper from "./ScoreKeeper";
 import { COLORS, QUIZ_MODES } from "../utils/Constants";
 //import mock from "../mock.json";
@@ -20,8 +21,7 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
         answer.replace(/^0+/, "") ===
           questions[currentQuestionIndex].default_jersey.toString()) ||
       (quizMode === QUIZ_MODES.NAMES &&
-        answer.toLowerCase() ===
-          questions[currentQuestionIndex].last_name.toLowerCase())
+        hammingDistance(answer, questions[currentQuestionIndex].last_name) < 3)
     ) {
       questions[currentQuestionIndex].score = 1;
       setScore(currentScore + 1);
@@ -100,7 +100,7 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
                 <form onSubmit={handleSubmit}>
                   <Input
                     onChange={handleInputChange}
-                    pattern="[A-Za-z0-9]{1,50}"
+                    pattern="[A-Za-z0-9]\p{L}{1,50}"
                     required
                     value={answer}
                     placeholder={
