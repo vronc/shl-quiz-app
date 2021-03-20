@@ -4,6 +4,11 @@ export const QUIZ_STATES = {
   QUIZ_RESULT: "quiz result",
 };
 
+export const QUIZ_MODES = {
+  NAMES: "Names",
+  NUMBERS: "Numbers",
+};
+
 export const COLORS = {
   PRIMARY: "#191b20",
   SELECTED: "#000",

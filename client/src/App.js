@@ -4,10 +4,10 @@ import TeamPicker from "./components/TeamPicker";
 import Quiz from "./components/Quiz";
 import { createGlobalStyle } from "styled-components";
 import { B, Button, Gutter } from "./components/styledComponents/Index";
-import { QUIZ_STATES } from "./utils/Constants";
 import { Card } from "./components/styledComponents/Index";
 import PlayerCard from "./components/PlayerCard";
-import { COLORS } from "./utils/Constants";
+import { COLORS, QUIZ_MODES, QUIZ_STATES } from "./utils/Constants";
+import QuizModePicker from "./components/QuizTypePicker";
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -22,6 +22,9 @@ const App = () => {
   const connectToShl = () => axios.get("/api/v1/connect-to-shl");
 
   const [selectedTeams, setSelectedTeams] = useState([]); // DEBUG change to empty array
+  const [selectedQuizMode, setSelectedQuizMode] = useState([
+    QUIZ_MODES.NUMBERS,
+  ]);
   const [quizState, setQuizState] = useState(QUIZ_STATES.PICK_TEAMS); // DEBUG change to PICK_TEAMS
   const [results, setResults] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
@@ -44,12 +47,9 @@ const App = () => {
   }, [results]);
 
   const handleSelectTeam = (team) => {
-    const newSelectedTeams = selectedTeams.filter((t) => t !== team);
-    setSelectedTeams(
-      newSelectedTeams.length === selectedTeams.length
-        ? [...newSelectedTeams, team]
-        : newSelectedTeams
-    );
+    !selectedTeams.includes(team)
+      ? setSelectedTeams([...selectedTeams, team])
+      : setSelectedTeams(selectedTeams.filter((t) => t !== team));
   };
 
   const handleQuizStart = () => {
@@ -70,7 +70,11 @@ const App = () => {
           <TeamPicker
             handleSelectTeam={handleSelectTeam}
             selectedTeams={selectedTeams}
-          ></TeamPicker>
+          />
+          <QuizModePicker
+            selectedQuizMode={selectedQuizMode}
+            setSelectedQuizMode={setSelectedQuizMode}
+          />
           <Button
             disabled={selectedTeams.length === 0}
             onClick={() => handleQuizStart()}
@@ -80,7 +84,11 @@ const App = () => {
         </B>
       )}
       {quizState === QUIZ_STATES.QUIZ_ONGOING && (
-        <Quiz teams={selectedTeams} endQuiz={endQuiz}></Quiz>
+        <Quiz
+          teams={selectedTeams}
+          endQuiz={endQuiz}
+          quizMode={selectedQuizMode}
+        />
       )}
       {quizState === QUIZ_STATES.QUIZ_RESULT && (
         <B>

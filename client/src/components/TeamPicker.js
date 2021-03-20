@@ -22,7 +22,8 @@ const TeamPicker = ({ handleSelectTeam, selectedTeams }) => {
         <B>
           <h1>Pick some teams!</h1>
           <p>
-            All players from the selected teams will be included in the quiz.
+            All players from your selection of teams will be included in the
+            quiz.
           </p>
           {teams ? (
             <Card>

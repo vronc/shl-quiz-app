@@ -7,6 +7,7 @@ const PlayerCard = ({
   playerName,
   playerNumber,
   showPlayerNumber,
+  showPlayerName,
   correctAnswerGiven,
   width,
   team,
@@ -23,11 +24,13 @@ const PlayerCard = ({
         alt="player"
         color={COLORS_BY_TEAM[team]}
       />
-      <Headline>
-        {playerName.first}
-        <br />
-        {playerName.last}
-      </Headline>
+      {showPlayerName && (
+        <Headline>
+          {playerName.first}
+          <br />
+          {playerName.last}
+        </Headline>
+      )}
       {showPlayerNumber && (
         <h2
           style={{

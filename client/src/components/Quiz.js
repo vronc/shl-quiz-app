@@ -4,25 +4,29 @@ import PlayerCard from "./PlayerCard";
 import { Loader, Input, Card, B, Button } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import ScoreKeeper from "./ScoreKeeper";
-import { COLORS } from "../utils/Constants";
+import { COLORS, QUIZ_MODES } from "../utils/Constants";
 //import mock from "../mock.json";
 
-const Quiz = ({ teams, endQuiz }) => {
+const Quiz = ({ teams, endQuiz, quizMode }) => {
   const [questions, setQuestions] = useState([]);
-  const [questionIndex, setQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answer, setAnswer] = useState("");
   const [score, setScore] = useState(0);
 
   const checkAnswer = () => {
     const currentScore = score;
     if (
-      answer.replace(/^0+/, "") ===
-      questions[questionIndex].default_jersey.toString()
+      (quizMode === QUIZ_MODES.NUMBERS &&
+        answer.replace(/^0+/, "") ===
+          questions[currentQuestionIndex].default_jersey.toString()) ||
+      (quizMode === QUIZ_MODES.NAMES &&
+        answer.toLowerCase() ===
+          questions[currentQuestionIndex].last_name.toLowerCase())
     ) {
-      questions[questionIndex].score = 1;
+      questions[currentQuestionIndex].score = 1;
       setScore(currentScore + 1);
     } else {
-      questions[questionIndex].score = 0;
+      questions[currentQuestionIndex].score = 0;
     }
   };
 
@@ -36,7 +40,7 @@ const Quiz = ({ teams, endQuiz }) => {
   };
 
   const handleNextQuestion = () => {
-    setQuestionIndex(questionIndex + 1);
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
   useEffect(() => {
@@ -76,20 +80,21 @@ const Quiz = ({ teams, endQuiz }) => {
           <Card>
             <ScoreKeeper questions={questions} />
           </Card>
-          {questionIndex < questions.length ? (
+          {currentQuestionIndex < questions.length ? (
             <B>
               <PlayerCard
                 playerImg={
-                  questions[questionIndex].player_image_url &&
-                  questions[questionIndex].player_image_url
+                  questions[currentQuestionIndex].player_image_url &&
+                  questions[currentQuestionIndex].player_image_url
                 }
                 playerName={{
-                  first: questions[questionIndex].first_name,
-                  last: questions[questionIndex].last_name,
+                  first: questions[currentQuestionIndex].first_name,
+                  last: questions[currentQuestionIndex].last_name,
                 }}
-                playerNumber={questions[questionIndex].default_jersey}
-                showPlayerNumber={false}
-                team={questions[questionIndex].team}
+                playerNumber={questions[currentQuestionIndex].default_jersey}
+                showPlayerNumber={quizMode !== QUIZ_MODES.NUMBERS}
+                showPlayerName={quizMode !== QUIZ_MODES.NAMES}
+                team={questions[currentQuestionIndex].team}
               />
               <Card flexWrap="nowrap">
                 <form onSubmit={handleSubmit}>
@@ -98,7 +103,13 @@ const Quiz = ({ teams, endQuiz }) => {
                     pattern="[A-Za-z0-9]{1,50}"
                     required
                     value={answer}
-                    placeholder="player number"
+                    placeholder={
+                      quizMode === QUIZ_MODES.NUMBERS
+                        ? "player number"
+                        : quizMode === QUIZ_MODES.NAMES
+                        ? "player name"
+                        : ""
+                    }
                   />
                 </form>
               </Card>
