@@ -7,7 +7,7 @@ import { B, Button, Gutter } from "./components/styledComponents/Index";
 import { Card } from "./components/styledComponents/Index";
 import PlayerCard from "./components/PlayerCard";
 import { COLORS, QUIZ_MODES, QUIZ_STATES } from "./utils/Constants";
-import QuizModePicker from "./components/QuizTypePicker";
+import QuizModePicker from "./components/QuizModePicker";
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -22,9 +22,7 @@ const App = () => {
   const connectToShl = () => axios.get("/api/v1/connect-to-shl");
 
   const [selectedTeams, setSelectedTeams] = useState([]); // DEBUG change to empty array
-  const [selectedQuizMode, setSelectedQuizMode] = useState([
-    QUIZ_MODES.NUMBERS,
-  ]);
+  const [selectedQuizMode, setSelectedQuizMode] = useState(QUIZ_MODES.NUMBERS);
   const [quizState, setQuizState] = useState(QUIZ_STATES.PICK_TEAMS); // DEBUG change to PICK_TEAMS
   const [results, setResults] = useState([]);
   const [totalScore, setTotalScore] = useState(0);

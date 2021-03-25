@@ -5,8 +5,8 @@ export const QUIZ_STATES = {
 };
 
 export const QUIZ_MODES = {
-  NAMES: "NAMES",
   NUMBERS: "NUMBERS",
+  NAMES: "NAMES",
 };
 
 export const COLORS = {

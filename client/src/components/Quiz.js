@@ -12,10 +12,8 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [score, setScore] = useState(0);
 
   const checkAnswer = () => {
-    const currentScore = score;
     if (
       (quizMode === QUIZ_MODES.NUMBERS &&
         answer.replace(/^0+/, "") ===
@@ -24,7 +22,6 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
         hammingDistance(answer, questions[currentQuestionIndex].last_name) < 3)
     ) {
       questions[currentQuestionIndex].score = 1;
-      setScore(currentScore + 1);
     } else {
       questions[currentQuestionIndex].score = 0;
     }
@@ -100,7 +97,7 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
                 <form onSubmit={handleSubmit}>
                   <Input
                     onChange={handleInputChange}
-                    pattern="[A-Za-z0-9]\p{L}{1,50}"
+                    pattern="[\p{L}A-Za-z0-9]{1,50}"
                     required
                     value={answer}
                     placeholder={
