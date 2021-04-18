@@ -7,3 +7,4 @@ export * from "./B";
 export * from "./ImageCard";
 export * from "./ProgressBar";
 export * from "./Gutter";
+export * from "./Checkbox";

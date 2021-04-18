@@ -15,9 +15,10 @@ export const COLORS = {
   IDLE: "#536481",
   DISABLED: "#666",
   ATTENTION: "#20fffd",
-  CORRECT: "#00dd6d",
-  RED: "#dd0000",
-  FIELD: "seashell",
+  CORRECT: "#21955a",
+  INCORRECT: "#dc5637",
+  FIELD: "#fff5ee",
+  FIELD_SUPPORT: "#ffebd5",
 };
 
 export const COLORS_BY_TEAM = {

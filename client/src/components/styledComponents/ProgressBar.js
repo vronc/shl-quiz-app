@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLORS } from "../../utils/Constants";
 
 const ITEM_STATES = {
-  0: COLORS.RED,
+  0: COLORS.INCORRECT,
   1: COLORS.CORRECT,
   2: "lightgray",
 };

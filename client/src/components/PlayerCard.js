@@ -29,7 +29,7 @@ const PlayerCard = ({
       {showPlayerNumber && (
         <h2
           style={{
-            color: correctAnswerGiven ? COLORS.CORRECT : COLORS.RED,
+            color: correctAnswerGiven ? COLORS.CORRECT : COLORS.INCORRECT,
             marginTop: "1rem",
           }}
         >
