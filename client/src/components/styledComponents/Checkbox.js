@@ -8,7 +8,7 @@ const Input = styled.input`
   height: 0;
   width: 0;
   opacity: 0;
-  z-index: -1;
+  z-index: 0;
 `;
 
 const Label = styled.label`
@@ -35,7 +35,7 @@ const Indicator = styled.div`
   background: ${COLORS.FIELD};
   position: absolute;
   top: 0rem;
-  left: -1.6rem;
+  left: 0rem;
   border: 1px solid ${COLORS.IDLE};
   border-radius: 0.2rem;
 

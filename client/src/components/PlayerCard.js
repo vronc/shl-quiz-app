@@ -20,7 +20,11 @@ const PlayerCard = ({
         color={COLORS_BY_TEAM[team]}
       />
       {showPlayerName && (
-        <Headline>
+        <Headline
+          style={{
+            color: correctAnswerGiven ? COLORS.CORRECT : COLORS.INCORRECT,
+          }}
+        >
           {playerName.first}
           <br />
           {playerName.last}
