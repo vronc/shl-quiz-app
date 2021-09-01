@@ -55,11 +55,13 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
         setQuestions((qs) =>
           shuffle([
             ...qs,
-            ...team.data.body.map((p) => ({
-              ...p,
-              score: 2,
-              team: team.config.params.team_code,
-            })),
+            ...team.data.body
+              .map((p) => ({
+                ...p,
+                score: 2,
+                team: team.config.params.team_code,
+              }))
+              .filter((p) => p.default_jersey),
           ])
         )
       );

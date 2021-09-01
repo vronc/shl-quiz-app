@@ -111,6 +111,7 @@ const App = () => {
                     }}
                     playerNumber={r.default_jersey}
                     showPlayerNumber={true}
+                    showPlayerName={true}
                     correctAnswerGiven={r.score}
                     team={r.team}
                   />

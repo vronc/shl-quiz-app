@@ -36,4 +36,5 @@ export const COLORS_BY_TEAM = {
   RBK: "#0a441c",
   SAIK: "#8a661a",
   VLH: "#ca6028",
+  TIK: "#87000d",
 };
