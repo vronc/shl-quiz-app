@@ -20,13 +20,13 @@ const TeamPicker = ({ handleSelectTeam, selectedTeams }) => {
     <B>
       <Card>
         <B>
-          <h1>Pick some teams!</h1>
-          <p>
+          <h1>Pick some teams</h1>
+          <h5 style={{ marginTop: 0 }}>
             All players from your selection of teams will be included in the
             quiz.
-          </p>
+          </h5>
           {teams ? (
-            <Card>
+            <B style={{ flexWrap: "wrap", flexDirection: "row" }}>
               {teams.map((team, i) => (
                 <Button
                   selected={selectedTeams.includes(team.team_code)}
@@ -36,7 +36,7 @@ const TeamPicker = ({ handleSelectTeam, selectedTeams }) => {
                   {team.team_code}
                 </Button>
               ))}
-            </Card>
+            </B>
           ) : (
             <Loader size="2rem" />
           )}

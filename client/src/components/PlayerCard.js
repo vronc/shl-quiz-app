@@ -13,7 +13,7 @@ const PlayerCard = ({
   team,
 }) => {
   return (
-    <Card flexDirection="column" width={width} justifyContent={"flex-start"}>
+    <Card flexDirection="column" width={width} justifyContent="flex-start">
       <ImageCard
         src={playerImg || placeholder_player_image}
         alt="player"
