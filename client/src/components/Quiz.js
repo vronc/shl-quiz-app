@@ -5,7 +5,12 @@ import { Loader, Input, Card, B, Button } from "./styledComponents/Index";
 import { shuffle } from "../utils/Shuffle";
 import { hammingDistance } from "../utils/HammingDistance";
 import ScoreKeeper from "./ScoreKeeper";
-import { COLORS, QUIZ_MODES } from "../utils/Constants";
+import {
+  COLORS,
+  INPUT_PLACEHOLDER_BY_MODE,
+  POSITION_ABBREVIATIONS,
+  QUIZ_MODES,
+} from "../utils/Constants";
 //import mock from "../mock.json";
 
 const Quiz = ({ teams, endQuiz, quizMode }) => {
@@ -19,7 +24,13 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
         answer.replace(/^0+/, "") ===
           questions[currentQuestionIndex].default_jersey.toString()) ||
       (quizMode === QUIZ_MODES.NAMES &&
-        hammingDistance(answer, questions[currentQuestionIndex].last_name) < 3)
+        hammingDistance(answer, questions[currentQuestionIndex].last_name) <
+          3) ||
+      (quizMode === QUIZ_MODES.POSITIONS &&
+        hammingDistance(answer, questions[currentQuestionIndex].position) <
+          3) ||
+      answer.toUpperCase() ===
+        POSITION_ABBREVIATIONS[questions[currentQuestionIndex].position]
     ) {
       questions[currentQuestionIndex].score = 1;
     } else {
@@ -60,6 +71,7 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
                 ...p,
                 score: 2,
                 team: team.config.params.team_code,
+                position: p.position.split(" ")[3],
               }))
               .filter((p) => p.default_jersey),
           ])
@@ -91,8 +103,10 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
                   last: questions[currentQuestionIndex].last_name,
                 }}
                 playerNumber={questions[currentQuestionIndex].default_jersey}
+                playerPosition={questions[currentQuestionIndex].position}
                 showPlayerNumber={quizMode !== QUIZ_MODES.NUMBERS}
                 showPlayerName={quizMode !== QUIZ_MODES.NAMES}
+                showPlayerPosition={quizMode !== QUIZ_MODES.POSITIONS}
                 team={questions[currentQuestionIndex].team}
               />
               <Card flexWrap="nowrap">
@@ -102,13 +116,7 @@ const Quiz = ({ teams, endQuiz, quizMode }) => {
                     pattern="[\p{L}A-Za-z0-9]{1,50}"
                     required
                     value={answer}
-                    placeholder={
-                      quizMode === QUIZ_MODES.NUMBERS
-                        ? "player number"
-                        : quizMode === QUIZ_MODES.NAMES
-                        ? "player name"
-                        : ""
-                    }
+                    placeholder={INPUT_PLACEHOLDER_BY_MODE[quizMode]}
                   />
                 </form>
               </Card>

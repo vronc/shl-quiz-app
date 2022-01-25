@@ -7,10 +7,7 @@ const TeamPicker = ({ handleSelectTeam, selectedTeams }) => {
   const [teams, setTeams] = useState(null);
 
   const fetchteams = () =>
-    axios.get("/api/v1/get-teams").then((res) => {
-      const response = res.data.body;
-      setTeams(response);
-    });
+    axios.get("/api/v1/get-teams").then((res) => setTeams(res.data.body));
 
   useEffect(() => {
     fetchteams();

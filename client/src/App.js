@@ -110,8 +110,10 @@ const App = () => {
                       last: r.last_name,
                     }}
                     playerNumber={r.default_jersey}
+                    playerPosition={r.position}
                     showPlayerNumber={true}
                     showPlayerName={true}
+                    showPlayerPosition={true}
                     correctAnswerGiven={r.score}
                     team={r.team}
                   />

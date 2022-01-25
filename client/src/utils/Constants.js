@@ -7,6 +7,13 @@ export const QUIZ_STATES = {
 export const QUIZ_MODES = {
   NUMBERS: "NUMBERS",
   NAMES: "NAMES",
+  POSITIONS: "POSITIONS",
+};
+
+export const INPUT_PLACEHOLDER_BY_MODE = {
+  NUMBERS: "player number",
+  NAMES: "player name",
+  POSITIONS: "player position (G,F,D)",
 };
 
 export const COLORS = {
@@ -37,4 +44,13 @@ export const COLORS_BY_TEAM = {
   SAIK: "#8a661a",
   VLH: "#ca6028",
   TIK: "#87000d",
+};
+
+export const POSITION_ABBREVIATIONS = {
+  Målvakt: "G",
+  Vänsterback: "D",
+  Högerback: "D",
+  Center: "F",
+  Vänsterforward: "F",
+  Högerforward: "F",
 };
