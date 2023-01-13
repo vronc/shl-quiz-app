@@ -1,7 +1,7 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
 
-const getPlayerProfileImageUrl = async (playerProfileUrl) => {
+const getPlayerProfileImageUrl = async (playerProfileUrl, retries = 3) => {
   return axios
     .get(playerProfileUrl)
     .then((response) => {
@@ -9,18 +9,17 @@ const getPlayerProfileImageUrl = async (playerProfileUrl) => {
         const html = response.data;
         const $ = cheerio.load(html);
         const image = $("img[src^='https://cdn.ramses.nu']");
-        if (!image) console.log(image);
         return image ? image[0].attribs.src : "";
       }
     })
     .catch((e) => {
-      if (e.config) {
+      if (retries > 0) {
         console.log(
-          "There was a problem fetching player image from url: " +
-            e.config.url +
-            ". Retrying fetch..."
+          `There was a problem fetching player image from url: ${
+            e.config ? e.config.url : "<url not found>"
+          }. Retrying fetch...`
         );
-        return getPlayerProfileImageUrl(playerProfileUrl);
+        return getPlayerProfileImageUrl(playerProfileUrl, retries - 1);
       }
     });
 };

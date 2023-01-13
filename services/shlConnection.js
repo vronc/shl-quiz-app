@@ -3,7 +3,7 @@ const { connect } = require("http2");
 const qs = require("querystring");
 const scraperService = require("./ScraperService");
 
-const baseUrl = "https://openapi.shl.se",
+const BASE_URL = "https://openapi.shl.se",
   auth = "/oauth2/token";
 
 const CONNECTION_REQ_FORM = {
@@ -34,7 +34,7 @@ class ShlConnection {
 
   connect() {
     axios
-      .post(baseUrl + auth, qs.stringify(CONNECTION_REQ_FORM), {
+      .post(BASE_URL + auth, qs.stringify(CONNECTION_REQ_FORM), {
         headers: HEADERS,
       })
       .then((body) => {
@@ -46,26 +46,27 @@ class ShlConnection {
       .catch((e) => console.log(e));
   }
 
-  isConnected = function () {
+  isConnected = () => {
     return this._accessToken && new Date() <= this.expires;
   };
 
-  getPlayersByTeam = function (teamCode) {
+  getPlayersByTeam = (teamCode) => {
     if (!this.isConnected()) {
       connect();
     }
 
     return axios
-      .get(baseUrl + "/teams/" + teamCode + ".json", {
+      .get(BASE_URL + "/teams/" + teamCode + ".json", {
         headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
       })
       .then((body) => body.data.players)
       .then(async (players) => {
         let promisedPlayers = await Promise.all(
           players.map(async (player) => {
-            player.player_image_url = await scraperService.getPlayerProfileImageUrl(
-              player.player_url_desktop
-            );
+            player.player_image_url =
+              await scraperService.getPlayerProfileImageUrl(
+                player.player_url_desktop
+              );
             return player;
           })
         );
@@ -74,13 +75,13 @@ class ShlConnection {
       .catch((e) => console.log("[shlConnection]: " + e));
   };
 
-  getTeams = function () {
+  getTeams = () => {
     if (!this.isConnected()) {
       connect();
     }
 
     return axios
-      .get(baseUrl + "/teams.json", {
+      .get(BASE_URL + "/teams.json", {
         headers: { ...HEADERS, Authorization: `Bearer ${this._accessToken}` },
       })
       .then((body) => {

@@ -1,4 +1,4 @@
-import { Headline, Card, ImageCard } from "./styledComponents/Index";
+import { H2, Card, ImageCard } from "./styledComponents/Index";
 import placeholder_player_image from "../assets/placeholder_player.png";
 import { COLORS, COLORS_BY_TEAM } from "../utils/Constants";
 
@@ -14,6 +14,13 @@ const PlayerCard = ({
   width,
   team,
 }) => {
+  const color =
+    correctAnswerGiven === undefined
+      ? COLORS.PRIMARY
+      : correctAnswerGiven
+      ? COLORS.CORRECT
+      : COLORS.INCORRECT;
+
   return (
     <Card flexDirection="column" width={width} justifyContent="flex-start">
       <ImageCard
@@ -22,17 +29,13 @@ const PlayerCard = ({
         color={COLORS_BY_TEAM[team]}
       />
       {showPlayerName && (
-        <Headline>
-          {playerName.first}
-          <br />
-          {playerName.last}
-        </Headline>
+        <H2 color={color}>{`${playerName.first} ${playerName.last}`}</H2>
       )}
       {showPlayerNumber && (
         <h3
           style={{
-            color: correctAnswerGiven ? COLORS.CORRECT : COLORS.INCORRECT,
             marginTop: "1rem",
+            color: color,
           }}
         >
           # {playerNumber}
@@ -41,8 +44,8 @@ const PlayerCard = ({
       {showPlayerPosition && (
         <h3
           style={{
-            color: correctAnswerGiven ? COLORS.CORRECT : COLORS.INCORRECT,
             marginTop: "1rem",
+            color: color,
           }}
         >
           {playerPosition}
